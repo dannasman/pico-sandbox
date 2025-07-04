@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2022-2025 Douglas H. Summerville, Binghamton University 
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a 
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
+ */
+
 #ifndef RP2350_PADS_BANK0_H
 #define RP2350_PADS_BANK0_H
 
@@ -58,7 +80,7 @@ typedef struct {
     uint32_t gpio47;
     uint32_t swclk;
     uint32_t swd;
-    uint32_t RSVD_0[973];
+    uint32_t RSVD0[973];
     uint32_t voltage_select_xor;
     uint32_t gpio0_xor;
     uint32_t gpio1_xor;
@@ -250,5 +272,21 @@ typedef struct {
 #define PADS_BANK0_GPIO1_SCHMITT_MASK   PADS_BANK0_GPIO1_SCHMITT(ALL1)
 #define PADS_BANK0_GPIO1_SLEWFAST(v)    ((_u(v) & _u(0x1)) << _u(0))
 #define PADS_BANK0_GPIO1_SLEWFAST_MASK  PADS_BANK0_GPIO1_SLEWFAST(ALL1)
+
+#define PADS_BANK0_GPIO25_ISO(v)        ((_u(v) & _u(0x1)) << _u(8))
+#define PADS_BANK0_GPIO25_ISO_MASK      PADS_BANK0_GPIO25_ISO(ALL1)
+#define PADS_BANK0_GPIO25_OD(v)         ((_u(v) & _u(0x1)) << _u(7))
+#define PADS_BANK0_GPIO25_OD_MASK       PADS_BANK0_GPIO25_OD(ALL1)
+#define PADS_BANK0_GPIO25_IE(v)         ((_u(v) & _u(0x1)) << _u(6))
+#define PADS_BANK0_GPIO25_IE_MASK       PADS_BANK0_GPIO25_IE(ALL1)
+#define PADS_BANK0_GPIO25_DRIVE(v)      ((_u(v) & _u(0x3)) << _u(4))
+#define PADS_BANK0_GPIO25_PUE(v)        ((_u(v) & _u(0x1)) << _u(3))
+#define PADS_BANK0_GPIO25_PUE_MASK      PADS_BANK0_GPIO25_PUE(ALL1)
+#define PADS_BANK0_GPIO25_PDE(v)        ((_u(v) & _u(0x1)) << _u(2))
+#define PADS_BANK0_GPIO25_PDE_MASK      PADS_BANK0_GPIO25_PDE(ALL1)
+#define PADS_BANK0_GPIO25_SCHMITT(v)    ((_u(v) & _u(0x1)) << _u(1))
+#define PADS_BANK0_GPIO25_SCHMITT_MASK  PADS_BANK0_GPIO25_SCHMITT(ALL1)
+#define PADS_BANK0_GPIO25_SLEWFAST(v)   ((_u(v) & _u(0x1)) << _u(0))
+#define PADS_BANK0_GPIO25_SLEWFAST_MASK PADS_BANK0_GPIO25_SLEWFAST(ALL1)
 
 #endif

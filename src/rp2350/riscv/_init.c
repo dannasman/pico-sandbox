@@ -77,7 +77,7 @@ void __attribute__ ((interrupt ("machine"), weak, alias("default_handler"), sect
 void __attribute__ ((interrupt ("machine"), weak, alias("default_handler"), section(".data"))) SPAREIRQ_IRQ_4_Handler(void);
 void __attribute__ ((interrupt ("machine"), weak, alias("default_handler"), section(".data"))) SPAREIRQ_IRQ_5_Handler(void);
 
-void __attribute__ ((naked, section(".data"), aligned(16)))  __vector_table(void)
+void __attribute__ ((naked, section(".data.vectors"), aligned(16)))  __vector_table(void)
 {
     __asm__ volatile (
             ".org   __vector_table + 0*4;"
@@ -156,4 +156,9 @@ void default_handler(void)
     __asm__ volatile ("csrrc x0, mstatus, %0" :: "r"(0x8));
     while(1)
         __asm__ volatile ("wfi");
+}
+
+void __attribute__((used, section(".init" ))) _entry_point()
+{
+    RESET_Handler();
 }

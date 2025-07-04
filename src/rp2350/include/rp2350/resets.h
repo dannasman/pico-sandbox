@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2022-2025 Douglas H. Summerville, Binghamton University 
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a 
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
+ */
+
 #ifndef RP2350_RESETS_H
 #define RP2350_RESETS_H
 
@@ -10,7 +32,7 @@ typedef struct {
     uint32_t reset;
     uint32_t wdsel;
     uint32_t reset_done;
-    uint32_t RSVD_0[1021];
+    uint32_t RSVD0[1021];
     uint32_t reset_xor;
     uint32_t wdsel_xor;
     uint32_t reset_done_xor;
@@ -40,16 +62,22 @@ typedef struct {
 #define RESETS_WDSEL_CLEAR      (*(volatile uint32_t *)(0x40023004))
 #define RESETS_RESET_DONE_CLEAR (*(volatile uint32_t *)(0x40023008))
 
-#define RESETS_RESET_UART1(v)       ((_u(v) & 0x1) << _u(27))
-#define RESETS_RESET_UART1_MASK     RESETS_RESET_UART1(ALL1)
+#define RESETS_RESET_UART1(v)           ((_u(v) & 0x1) << _u(27))
+#define RESETS_RESET_UART1_MASK         RESETS_RESET_UART1(ALL1)
 
-#define RESETS_RESET_UART0(v)       ((_u(v) & 0x1) << _u(26))
-#define RESETS_RESET_UART0_MASK     RESETS_RESET_UART0(ALL1)
+#define RESETS_RESET_UART0(v)           ((_u(v) & 0x1) << _u(26))
+#define RESETS_RESET_UART0_MASK         RESETS_RESET_UART0(ALL1)
 
-#define RESETS_RESET_PLL_SYS(v)     ((_u(v) & 0x1) << _u(14))
-#define RESETS_RESET_PLL_SYS_MASK   RESETS_RESET_PLL_SYS(ALL1)
+#define RESETS_RESET_PLL_USB(v)         ((_u(v) & 0x1) << _u(15))
+#define RESETS_RESET_PLL_USB_MASK       RESETS_RESET_PLL_USB(ALL1)
 
-#define RESETS_RESET_IO_BANK0(v)    ((_u(v) & 0x1) << _u(6))
-#define RESETS_RESET_IO_BANK0_MASK  RESETS_RESET_IO_BANK0(ALL1)
+#define RESETS_RESET_PLL_SYS(v)         ((_u(v) & 0x1) << _u(14))
+#define RESETS_RESET_PLL_SYS_MASK       RESETS_RESET_PLL_SYS(ALL1)
+
+#define RESETS_RESET_PADS_BANK0(v)      ((_u(v) & 0x1) << _u(9))
+#define RESETS_RESET_PADS_BANK0_MASK    RESETS_RESET_PADS_BANK0(ALL1)
+
+#define RESETS_RESET_IO_BANK0(v)        ((_u(v) & 0x1) << _u(6))
+#define RESETS_RESET_IO_BANK0_MASK      RESETS_RESET_IO_BANK0(ALL1)
 
 #endif

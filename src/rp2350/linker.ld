@@ -12,6 +12,7 @@ SECTIONS
         KEEP(*(.vectors))
         KEEP(*(.embedded_block))
         KEEP(*(.init))
+        KEEP(*(.reset))
         *(.text*)
         *(.rodata*)
         __text_end = .;
@@ -20,6 +21,7 @@ SECTIONS
     .data : {
         __data_lma = LOADADDR(.data);
         __data_start = .;
+        KEEP(*(.data.vectors))
         KEEP(*(.data))
         *(.data*)
         __data_end = .;

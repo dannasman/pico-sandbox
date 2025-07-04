@@ -1,21 +1,19 @@
-#include <rp2350/resets.h>
+#include <gpio.h>
+#include <led.h>
+#include <pl011.h>
 
-void main() {
-	//Release IO_BANK and PADS resets
-	*(unsigned volatile *)0x40020000 &= 0xFFFFFDBF;
-	while((*(unsigned volatile *)0x40020008 & 0x00000240) != 0x00000240)
-		continue;
-	//Configure PAD25 and PIN25
-	*(unsigned volatile *)0x40038068 = 0;
-	*(unsigned volatile *)0x400280CC = 5;
-	//Enable GPIO25 and Set to 1
-	*(unsigned volatile *)0xd0000038 = 0x02000000;
-	//Run forever
-	while(1) {
-		//Toggle LED
-		*(unsigned volatile *)0xd0000028 = 0x02000000;
-		//Delay
-		for( volatile unsigned int i=0; i<120000; i++ )
-			continue;
-	}
+#define DELAY 0x00400000
+
+int main(void) {
+    gpio_init();
+    led_init();
+    uart_init();
+#ifdef CONFIG_MACH_RISCV
+    led_on();
+#endif
+    while (1) {
+        led_toggle();
+        for (volatile uint32_t i=0; i<DELAY; i++)
+            continue;
+    }
 }

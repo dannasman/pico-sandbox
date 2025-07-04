@@ -21,11 +21,11 @@ if(TARGET_CORE STREQUAL "cortex-m33")
 
     message(STATUS "Configuring for Cortex-M33")
     target_compile_options(sandbox.elf PRIVATE
-        --target=armv8m.main-none-eabi
+        -march=armv8m.main+fp+dsp
         -mcpu=cortex-m33
         -mfloat-abi=softfp
-        -ffreestanding
-        -nostdlib
+        -mthumb
+        #-mcmse
     )
 elseif(TARGET_CORE STREQUAL "hazard3")
     add_definitions(-DCONFIG_MACH_RISCV)
@@ -40,9 +40,9 @@ elseif(TARGET_CORE STREQUAL "hazard3")
     message(STATUS "Configuring for Hazard3 (RISC-V)")
     target_compile_options(sandbox.elf PRIVATE
         --target=riscv32-unknown-elf
-        -march=rv32imac_zicsr_zifencei_zba_zbb_zbs_zbkb
+        #-march=rv32imac_zicsr_zifencei_zba_zbb_zbs_zbkb
+        -mcpu=rp2350-hazard3
         -mabi=ilp32
-        -Os
         -ffreestanding
         -nostdlib
      )

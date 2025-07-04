@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2022-2025 Douglas H. Summerville, Binghamton University 
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a 
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
+ */
+
 #ifndef RP2350_CLOCKS_H
 #define RP2350_CLOCKS_H
 
@@ -233,7 +255,7 @@ typedef struct {
 #define CLOCKS_CLK_REF_CTRL_SRC_MASK        CLOCKS_CLK_REF_CTRL_SRC(ALL1)
 
 #define CLOCKS_CLK_REF_DIV_INT(v)           ((_u(v) & _u(0xff)) << _u(16))
-#define CLOCKS_CLK_REF_DIV_INT_MASK         CLOCKS_CLK_SYS_DIV_INT(ALL1)
+#define CLOCKS_CLK_REF_DIV_INT_MASK         CLOCKS_CLK_REF_DIV_INT(ALL1)
 
 #define CLOCKS_CLK_SYS_CTRL_AUXSRC(v)       ((_u(v) & _u(0x7)) << _u(5))
 #define CLOCKS_CLK_SYS_CTRL_AUXSRC_MASK     CLOCKS_CLK_SYS_CTRL_AUXSRC(ALL1)
@@ -242,7 +264,15 @@ typedef struct {
 
 #define CLOCKS_CLK_SYS_DIV_INT(v)           ((_u(v) & _u(0xffff)) << _u(16))
 #define CLOCKS_CLK_SYS_DIV_INT_MASK         CLOCKS_CLK_SYS_DIV_INT(ALL1)
-#define CLOCKS_CLK_SYS_DIV_FRAC(v)          ((_u(V) & _u(0xffff)) << _u(0))
+#define CLOCKS_CLK_SYS_DIV_FRAC(v)          ((_u(v) & _u(0xffff)) << _u(0))
 #define CLOCKS_CLK_SYS_DIV_FRAC_MASK        CLOCKS_CLK_SYS_DIV_FRAC(ALL1)
+
+#define CLOCKS_CLK_PERI_CTRL_ENABLE(v)      ((_u(v) & _u(0x1)) << 11)
+#define CLOCKS_CLK_PERI_CTRL_ENABLE_MASK    CLOCKS_CLK_PERI_CTRL_ENABLE(ALL1)
+#define CLOCKS_CLK_PERI_CTRL_AUXSRC(v)      ((_u(v) & _u(0x7)) << _u(5))
+#define CLOCKS_CLK_PERI_CTRL_AUXSRC_MASK    CLOCKS_CLK_PERI_CTRL_AUXSRC(ALL1)
+
+#define CLOCKS_CLK_PERI_DIV_INT(v)           ((_u(v) & _u(0x3)) << _u(16))
+#define CLOCKS_CLK_PERI_DIV_INT_MASK         CLOCKS_CLK_PERI_DIV_INT(ALL1)
 
 #endif

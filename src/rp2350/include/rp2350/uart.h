@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2022-2025 Douglas H. Summerville, Binghamton University 
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a 
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
+ */
+
 #ifndef RP2350_UART_H
 #define RP2350_UART_H
 
@@ -11,8 +33,8 @@ typedef struct {
     uint32_t uartrsr;
     uint32_t RSVD0[4];
     uint32_t uartfr;
-    uint32_t uartilpr;
     uint32_t RSVD1;
+    uint32_t uartilpr;
     uint32_t uartibrd;
     uint32_t uartfbrd;
     uint32_t uartlcr_h;
@@ -36,8 +58,8 @@ typedef struct {
     uint32_t uartrsr_xor;
     uint32_t RSVDxor_0[4];
     uint32_t uartfr_xor;
-    uint32_t uartilpr_xor;
     uint32_t RSVDxor_1;
+    uint32_t uartilpr_xor;
     uint32_t uartibrd_xor;
     uint32_t uartfbrd_xor;
     uint32_t uartlcr_h_xor;
@@ -61,8 +83,8 @@ typedef struct {
     uint32_t uartrsr_set;
     uint32_t RSVDset_0[4];
     uint32_t uartfr_set;
-    uint32_t uartilpr_set;
     uint32_t RSVDset_1;
+    uint32_t uartilpr_set;
     uint32_t uartibrd_set;
     uint32_t uartfbrd_set;
     uint32_t uartlcr_h_set;
@@ -86,8 +108,8 @@ typedef struct {
     uint32_t uartrsr_clr;
     uint32_t RSVDclr_0[4];
     uint32_t uartfr_clr;
-    uint32_t uartilpr_clr;
     uint32_t RSVDclr_1;
+    uint32_t uartilpr_clr;
     uint32_t uartibrd_clr;
     uint32_t uartfbrd_clr;
     uint32_t uartlcr_h_clr;
@@ -123,13 +145,13 @@ typedef struct {
 #define UART_UARTDR_DATA(v)     ((_u(v) & 0xff) << _u(0))
 
 #define UART_UARTRSR_OE(v)      ((_u(v) & 0x1) << _u(3))
-#define UART_UARTRSR_OE_MASK    UART_UARTSRS_OE(ALL1)
-#define UART_UARTSRS_BE(v)      ((_u(v) & 0x1) << _u(2))
-#define UART_UARTSRS_BE_MASK    UART_UARTSRS_BE(ALL1)
-#define UART_UARTSRS_PE(v)      ((_u(v) & 0x1) << _u(1))
-#define UART_UARTSRS_PE_MASK    UART_UARTSRS_PE(ALL1)
-#define UART_UARTSRS_FE(v)      ((_u(v) & 0x1) << _u(0))
-#define UART_UARTSRS_FE_MASK    UART_UARTSRS_FE(ALL1)
+#define UART_UARTRSR_OE_MASK    UART_UARTRSR_OE(ALL1)
+#define UART_UARTRSR_BE(v)      ((_u(v) & 0x1) << _u(2))
+#define UART_UARTRSR_BE_MASK    UART_UARTRSR_BE(ALL1)
+#define UART_UARTRSR_PE(v)      ((_u(v) & 0x1) << _u(1))
+#define UART_UARTRSR_PE_MASK    UART_UARTRSR_PE(ALL1)
+#define UART_UARTRSR_FE(v)      ((_u(v) & 0x1) << _u(0))
+#define UART_UARTRSR_FE_MASK    UART_UARTRSR_FE(ALL1)
 
 #define UART_UARTFR_RI(v)       ((_u(v) & 0x1) << _u(8))
 #define UART_UARTFR_RI_MASK     UART_UARTFR_RI(ALL1)
@@ -145,8 +167,6 @@ typedef struct {
 #define UART_UARTFR_BUSY_MASK   UART_UARTFR_BUSY(ALL1)
 #define UART_UARTFR_DCD(v)      ((_u(v) & 0x1) << _u(2))
 #define UART_UARTFR_DCD_MASK    UART_UARTFR_DCD(ALL1)
-#define UART_UARTFR_DSR(v)      ((_u(v) & 0x1) << _u(1))
-#define UART_UARTFR_DSR_MASK    UART_UARTFR_DSR(ALL1)
 #define UART_UARTFR_DSR(v)      ((_u(v) & 0x1) << _u(1))
 #define UART_UARTFR_DSR_MASK    UART_UARTFR_DSR(ALL1)
 #define UART_UARTFR_CTS(v)      ((_u(v) & 0x1) << _u(0))

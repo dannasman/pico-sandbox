@@ -4,11 +4,6 @@
 extern void __stack_top();
 extern void RESET_Handler();
 
-void __attribute__((used, section(".init" ))) _reset_handler()
-{
-    RESET_Handler();
-}
-
 // TODO: figure out why DEFAULT_Handler can not be used...
 void default_handler()
 {
@@ -155,3 +150,8 @@ static const uint32_t __attribute__((used, section(".embedded_block"))) __embedd
     0x00000000,
     0xab123579,
 };
+
+void __attribute__((used, section(".init" ))) _entry_point()
+{
+    RESET_Handler();
+}

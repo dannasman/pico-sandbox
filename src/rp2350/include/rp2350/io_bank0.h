@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2022-2025 Douglas H. Summerville, Binghamton University 
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a 
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
+ */
+
 #ifndef RP2350_IO_BANK0_H
 #define RP2350_IO_BANK0_H
 
@@ -103,7 +125,7 @@ typedef struct {
     uint32_t gpio46_ctrl;
     uint32_t gpio47_status;
     uint32_t gpio47_ctrl;
-    uint32_t RSVD_0[32];
+    uint32_t RSVD0[32];
     uint32_t irqsummary_proc0_secure0;
     uint32_t irqsummary_proc0_secure1;
     uint32_t irqsummary_proc0_nonsecure0;
@@ -112,10 +134,10 @@ typedef struct {
     uint32_t irqsummary_proc1_secure1;
     uint32_t irqsummary_proc1_nonsecure0;
     uint32_t irqsummary_proc1_nonsecure1;
-    uint32_t irqsummary_coma_wake_secure0;
-    uint32_t irqsummary_coma_wake_secure1;
-    uint32_t irqsummary_coma_wake_nonsecure0;
-    uint32_t irqsummary_coma_wake_nonsecure1;
+    uint32_t irqsummary_dormant_wake_secure0;
+    uint32_t irqsummary_dormant_wake_secure1;
+    uint32_t irqsummary_dormant_wake_nonsecure0;
+    uint32_t irqsummary_dormant_wake_nonsecure1;
     uint32_t intr0;
     uint32_t intr1;
     uint32_t intr2;
@@ -176,7 +198,7 @@ typedef struct {
     uint32_t dormant_wake_ints3;
     uint32_t dormant_wake_ints4;
     uint32_t dormant_wake_ints5;
-    uint32_t RSVD_1[824];
+    uint32_t RSVD1[824];
     uint32_t gpio0_status_xor;
     uint32_t gpio0_ctrl_xor;
     uint32_t gpio1_status_xor;
@@ -282,10 +304,10 @@ typedef struct {
     uint32_t irqsummary_proc1_secure1_xor;
     uint32_t irqsummary_proc1_nonsecure0_xor;
     uint32_t irqsummary_proc1_nonsecure1_xor;
-    uint32_t irqsummary_coma_wake_secure0_xor;
-    uint32_t irqsummary_coma_wake_secure1_xor;
-    uint32_t irqsummary_coma_wake_nonsecure0_xor;
-    uint32_t irqsummary_coma_wake_nonsecure1_xor;
+    uint32_t irqsummary_dormant_wake_secure0_xor;
+    uint32_t irqsummary_dormant_wake_secure1_xor;
+    uint32_t irqsummary_dormant_wake_nonsecure0_xor;
+    uint32_t irqsummary_dormant_wake_nonsecure1_xor;
     uint32_t intr0_xor;
     uint32_t intr1_xor;
     uint32_t intr2_xor;
@@ -452,10 +474,10 @@ typedef struct {
     uint32_t irqsummary_proc1_secure1_set;
     uint32_t irqsummary_proc1_nonsecure0_set;
     uint32_t irqsummary_proc1_nonsecure1_set;
-    uint32_t irqsummary_coma_wake_secure0_set;
-    uint32_t irqsummary_coma_wake_secure1_set;
-    uint32_t irqsummary_coma_wake_nonsecure0_set;
-    uint32_t irqsummary_coma_wake_nonsecure1_set;
+    uint32_t irqsummary_dormant_wake_secure0_set;
+    uint32_t irqsummary_dormant_wake_secure1_set;
+    uint32_t irqsummary_dormant_wake_nonsecure0_set;
+    uint32_t irqsummary_dormant_wake_nonsecure1_set;
     uint32_t intr0_set;
     uint32_t intr1_set;
     uint32_t intr2_set;
@@ -622,10 +644,10 @@ typedef struct {
     uint32_t irqsummary_proc1_secure1_clr;
     uint32_t irqsummary_proc1_nonsecure0_clr;
     uint32_t irqsummary_proc1_nonsecure1_clr;
-    uint32_t irqsummary_coma_wake_secure0_clr;
-    uint32_t irqsummary_coma_wake_secure1_clr;
-    uint32_t irqsummary_coma_wake_nonsecure0_clr;
-    uint32_t irqsummary_coma_wake_nonsecure1_clr;
+    uint32_t irqsummary_dormant_wake_secure0_clr;
+    uint32_t irqsummary_dormant_wake_secure1_clr;
+    uint32_t irqsummary_dormant_wake_nonsecure0_clr;
+    uint32_t irqsummary_dormant_wake_nonsecure1_clr;
     uint32_t intr0_clr;
     uint32_t intr1_clr;
     uint32_t intr2_clr;
@@ -699,7 +721,7 @@ typedef struct {
 #define IO_BANK0_GPIO0_CTRL_IRQOVER(v)      ((_u(v) & _u(0x3)) << _u(28))
 #define IO_BANK0_GPIO0_CTRL_INOVER(v)       ((_u(v) & _u(0x3)) << _u(16))
 #define IO_BANK0_GPIO0_CTRL_OEOVER(v)       ((_u(v) & _u(0x3)) << _u(14))
-#define IO_BANK0_GPIO0_CRTL_OUTOVER(v)      ((_u(v) & _u(0x3)) << _u(12))
+#define IO_BANK0_GPIO0_CTRL_OUTOVER(v)      ((_u(v) & _u(0x3)) << _u(12))
 #define IO_BANK0_GPIO0_CTRL_FUNCSEL(v)      ((_u(v) & _u(0x1f)) << _u(0))
 
 #define IO_BANK0_GPIO1_STATUS_IRQTOPROC     ((_u(v) & _u(0x1)) << _u(26))
@@ -710,7 +732,18 @@ typedef struct {
 #define IO_BANK0_GPIO1_CTRL_IRQOVER(v)      ((_u(v) & _u(0x3)) << _u(28))
 #define IO_BANK0_GPIO1_CTRL_INOVER(v)       ((_u(v) & _u(0x3)) << _u(16))
 #define IO_BANK0_GPIO1_CTRL_OEOVER(v)       ((_u(v) & _u(0x3)) << _u(14))
-#define IO_BANK0_GPIO1_CRTL_OUTOVER(v)      ((_u(v) & _u(0x3)) << _u(12))
+#define IO_BANK0_GPIO1_CTRL_OUTOVER(v)      ((_u(v) & _u(0x3)) << _u(12))
 #define IO_BANK0_GPIO1_CTRL_FUNCSEL(v)      ((_u(v) & _u(0x1f)) << _u(0))
+
+#define IO_BANK0_GPIO25_STATUS_IRQTOPROC    ((_u(v) & _u(0x1)) << _u(26))
+#define IO_BANK0_GPIO25_STATUS_INFROMPAD    ((_u(v) & _u(0x1)) << _u(17))
+#define IO_BANK0_GPIO25_STATUS_OETOPAD      ((_u(v) & _u(0x1)) << _u(13))
+#define IO_BANK0_GPIO25_STATUS_OUTTOPAD     ((_u(v) & _u(0x1)) << _u(9))
+
+#define IO_BANK0_GPIO25_CTRL_IRQOVER(v)     ((_u(v) & _u(0x3)) << _u(28))
+#define IO_BANK0_GPIO25_CTRL_INOVER(v)      ((_u(v) & _u(0x3)) << _u(16))
+#define IO_BANK0_GPIO25_CTRL_OEOVER(v)      ((_u(v) & _u(0x3)) << _u(14))
+#define IO_BANK0_GPIO25_CTRL_OUTOVER(v)     ((_u(v) & _u(0x3)) << _u(12))
+#define IO_BANK0_GPIO25_CTRL_FUNCSEL(v)     ((_u(v) & _u(0x1f)) << _u(0))
 
 #endif

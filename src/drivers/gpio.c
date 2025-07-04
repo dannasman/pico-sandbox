@@ -1,11 +1,19 @@
 #include <rp2350/io_bank0.h>
+#include <rp2350/pads_bank0.h>
 #include <rp2350/resets.h>
-
 #include "gpio.h"
+
+#define GPIO_RESET_MASK     (RESETS_RESET_PADS_BANK0_MASK | RESETS_RESET_IO_BANK0_MASK)
 
 static void(*callback[5])();
 static uint8_t num_registered_callbacks;
 static uint32_t gpio_irq_events[4];
+
+void gpio_init()
+{
+    resets.reset_clr = GPIO_RESET_MASK;
+    while ((resets.reset_done & GPIO_RESET_MASK) != GPIO_RESET_MASK) {}
+}
 
 /* Set up interrupts */
 void register_gpio_irq_callback(void (*pf)())

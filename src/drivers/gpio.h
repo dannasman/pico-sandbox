@@ -4,5 +4,6 @@
 
 void register_gpio_irq_callback(void (*)());
 uint8_t get_irq_status_for_pin(uint8_t);
+void gpio_init(void);
 
 #endif
