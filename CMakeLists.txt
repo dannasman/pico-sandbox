@@ -10,6 +10,7 @@ set(CMAKE_ASM_COMPILER "${TOOLCHAIN_PATH}/clang")
 option(TARGET_CORE "Target core architecture: cortex-m33 or hazard3" "cortex-m33")
 
 if(TARGET_CORE STREQUAL "cortex-m33")
+    add_definitions(-DCONFIG_MACH_ARM)
     file(GLOB SOURCES
         ${CMAKE_SOURCE_DIR}/src/rp2350/arm/*c
         ${CMAKE_SOURCE_DIR}/src/drivers/*c
@@ -27,6 +28,7 @@ if(TARGET_CORE STREQUAL "cortex-m33")
         -nostdlib
     )
 elseif(TARGET_CORE STREQUAL "hazard3")
+    add_definitions(-DCONFIG_MACH_RISCV)
     file(GLOB SOURCES
         ${CMAKE_SOURCE_DIR}/src/rp2350/riscv/*c
         ${CMAKE_SOURCE_DIR}/src/drivers/*c
@@ -50,6 +52,7 @@ endif()
 
 target_include_directories(sandbox.elf PRIVATE
     ${CMAKE_SOURCE_DIR}/src/rp2350/include
+    ${CMAKE_SOURCE_DIR}/src/drivers
 )
 
 target_link_options(sandbox.elf PRIVATE
