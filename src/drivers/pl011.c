@@ -35,19 +35,32 @@ void uart_init(void)
 
 void uart_flush(void)
 {
-    while ((uart0.uartfr & UART_UARTFR_BUSY_MASK) != UART_UARTFR_BUSY_MASK) {}
+    while ((uart0.uartfr & UART_UARTFR_BUSY_MASK) == UART_UARTFR_BUSY_MASK) {}
+}
+
+static void uart_putc_raw(uint8_t c)
+{
+    while ((uart0.uartfr & UART_UARTFR_TXFF_MASK) == UART_UARTFR_TXFF_MASK) {}
+    uart0.uartdr = c;
+#if defined(CONFIG_MACH_RISCV)
+    for (uint32_t i=0; i<150; i++)
+        continue;
+#else
+    while ((uart0.uartfr & UART_UARTFR_BUSY_MASK) == UART_UARTFR_BUSY_MASK) {}
+#endif
 }
 
 void uart_putc(uint8_t c)
 {
-    while ((uart0.uartfr & UART_UARTFR_TXFF_MASK) != UART_UARTFR_TXFF_MASK) {}
-    uart0.uartdr = c;
+    uart_putc_raw(c);
+    if (c == '\r')
+        uart_putc_raw('\n');
 }
 
 uint8_t uart_getc(void)
 {
     uint8_t c;
-    while ((uart0.uartfr & UART_UARTFR_RXFE_MASK) != UART_UARTFR_RXFE_MASK) {}
+    while ((uart0.uartfr & UART_UARTFR_RXFE_MASK) == UART_UARTFR_RXFE_MASK) {}
     c = (uint8_t)uart0.uartdr;
     return c;
 }

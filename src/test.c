@@ -8,12 +8,13 @@ int main(void) {
     gpio_init();
     led_init();
     uart_init();
-#ifdef CONFIG_MACH_RISCV
-    led_on();
+#if defined(CONFIG_MACH_RISCV)
+    for (uint32_t i=0; i<3*DELAY; i++)
+        continue;
 #endif
-    while (1) {
-        led_toggle();
-        for (volatile uint32_t i=0; i<DELAY; i++)
-            continue;
+    led_on();
+    for(;;) {
+        uint8_t c = uart_getc();
+        uart_putc(c);
     }
 }
