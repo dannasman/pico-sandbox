@@ -24,7 +24,10 @@ if(TARGET_CORE STREQUAL "cortex-m33")
         -march=armv8m.main+fp+dsp
         -mcpu=cortex-m33
         -mfloat-abi=softfp
-        -mthumb
+        -Oz
+        -DNDEBUG
+        -ffreestanding
+        -nostdlib
         #-mcmse
     )
 elseif(TARGET_CORE STREQUAL "hazard3")
@@ -41,6 +44,7 @@ elseif(TARGET_CORE STREQUAL "hazard3")
     target_compile_options(sandbox.elf PRIVATE
         --target=riscv32-unknown-elf
         #-march=rv32imac_zicsr_zifencei_zba_zbb_zbs_zbkb
+        -Oz
         -mcpu=rp2350-hazard3
         -mabi=ilp32
         -ffreestanding
