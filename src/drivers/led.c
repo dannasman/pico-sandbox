@@ -19,24 +19,24 @@
         | IO_BANK0_GPIO25_CTRL_FUNCSEL(5))
 
 /* gpio should be initialized before calling */
-void led_init()
+void led_init(void)
 {
     pads_bank0.gpio25 = PADS_BANK0_BITS;
     io_bank0.gpio25_ctrl = IO_BANK0_BITS;
     sio.gpio_oe_set = (1 << 25);
 }
 
-void led_on()
+void led_on(void)
 {
     sio.gpio_out_set = (1 << 25);
 }
 
-void led_off()
+void led_off(void)
 {
     sio.gpio_out_clr = (1 << 25);
 }
 
-void led_toggle()
+void led_toggle(void)
 {
     sio.gpio_out_xor = (1 << 25);
 }

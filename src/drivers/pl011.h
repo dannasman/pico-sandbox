@@ -7,6 +7,7 @@
 void uart_flush(void);
 void uart_init(void);
 void uart_putc(uint8_t);
+void uart_puts(const char *);
 uint8_t uart_getc(void);
 
 #endif

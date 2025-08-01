@@ -5,18 +5,18 @@
 
 #define GPIO_RESET_MASK     (RESETS_RESET_PADS_BANK0_MASK | RESETS_RESET_IO_BANK0_MASK)
 
-static void(*callback[5])();
+static void(*callback[5])(void);
 static uint8_t num_registered_callbacks;
 static uint32_t gpio_irq_events[4];
 
-void gpio_init()
+void gpio_init(void)
 {
     resets.reset_clr = GPIO_RESET_MASK;
     while ((resets.reset_done & GPIO_RESET_MASK) != GPIO_RESET_MASK) {}
 }
 
 /* Set up interrupts */
-void register_gpio_irq_callback(void (*pf)())
+void register_gpio_irq_callback(void (*pf)(void))
 {
     /*
      * No need for reset?
@@ -39,9 +39,9 @@ uint8_t get_irq_status_for_pin(uint8_t pin)
 }
 
 #ifdef CONFIG_MACH_RISCV
-void __attribute__((interrupt, section(".data"))) IO_IRQ_BANK0_Handler()
+void __attribute__((interrupt, section(".data"))) IO_IRQ_BANK0_Handler(void)
 #else
-void IO_IRQ_BANK0_HANDLER()
+void IO_IRQ_BANK0_HANDLER(void)
 #endif
 {
     for (uint8_t i=0; i<4; i++)

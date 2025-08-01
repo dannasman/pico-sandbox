@@ -13,6 +13,7 @@ if(TARGET_CORE STREQUAL "cortex-m33")
     add_definitions(-DCONFIG_MACH_ARM)
     file(GLOB SOURCES
         ${CMAKE_SOURCE_DIR}/src/rp2350/arm/*c
+        ${CMAKE_SOURCE_DIR}/src/rp2350/*c
         ${CMAKE_SOURCE_DIR}/src/drivers/*c
         ${CMAKE_SOURCE_DIR}/src/*c
     )
@@ -28,12 +29,13 @@ if(TARGET_CORE STREQUAL "cortex-m33")
         -DNDEBUG
         -ffreestanding
         -nostdlib
-        #-mcmse
+        -pedantic
     )
 elseif(TARGET_CORE STREQUAL "hazard3")
     add_definitions(-DCONFIG_MACH_RISCV)
     file(GLOB SOURCES
         ${CMAKE_SOURCE_DIR}/src/rp2350/riscv/*c
+        ${CMAKE_SOURCE_DIR}/src/rp2350/*c
         ${CMAKE_SOURCE_DIR}/src/drivers/*c
         ${CMAKE_SOURCE_DIR}/src/*c
     )
@@ -43,12 +45,14 @@ elseif(TARGET_CORE STREQUAL "hazard3")
     message(STATUS "Configuring for Hazard3 (RISC-V)")
     target_compile_options(sandbox.elf PRIVATE
         --target=riscv32-unknown-elf
+        -mcpu=rp2350-hazard3
         #-march=rv32imac_zicsr_zifencei_zba_zbb_zbs_zbkb
         -Oz
-        -mcpu=rp2350-hazard3
+        -DNDEBUG
         -mabi=ilp32
         -ffreestanding
         -nostdlib
+        -pedantic
      )
 else()
     message(FATAL_ERROR "Unknown TARGET_CORE: ${TARGET_CORE}. Use cortex-m33 or hazard3.")

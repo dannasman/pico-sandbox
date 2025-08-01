@@ -11,10 +11,10 @@
 extern char __bss_start[RAMSIZE], __bss_end[];
 extern char __data_start[RAMSIZE], __data_end[], __data_lma[RAMSIZE];
 
-extern int main();
-extern void __vector_table();
+extern void main(void);
+extern void __vector_table(void);
 
-static void init_clocks();
+static void init_clocks(void);
 
 void RESET_Handler(void) {
     init_clocks();
@@ -33,7 +33,7 @@ void RESET_Handler(void) {
     main();
 }
 
-static void init_clocks()
+static void init_clocks(void)
 {
     clocks.clk_sys_resus_ctrl = 0;
 

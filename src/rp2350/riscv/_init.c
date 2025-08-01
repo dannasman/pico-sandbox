@@ -1,16 +1,16 @@
 #include <rp2350/resets.h>
 #include <stdint.h>
 
-extern void __stack_top();
-extern void RESET_Handler();
+extern void __stack_top(void);
+extern void RESET_Handler(void);
 
 static const uint32_t __attribute__((used, section(".embedded_block"))) __embedded_block[8] =
 {
     0xffffded3,
     0x11010142,
     0x00000344,
-    (uint32_t)(&RESET_Handler),
-    (uint32_t)(&__stack_top),
+    (uint32_t)(RESET_Handler),
+    (uint32_t)(__stack_top),
     0x000004ff,
     0x00000000,
     0xab123579,
@@ -147,8 +147,7 @@ void __attribute__ ((naked, section(".data.vectors"), aligned(16)))  __vector_ta
             : /* no output */
             : /* immediate input */
             : /* no clobbers */);
-};
-
+}
 
 void default_handler(void)
 {
@@ -158,7 +157,7 @@ void default_handler(void)
         __asm__ volatile ("wfi");
 }
 
-void __attribute__((used, section(".init" ))) _entry_point()
+void __attribute__((used, section(".init" ))) _entry_point(void)
 {
     RESET_Handler();
 }

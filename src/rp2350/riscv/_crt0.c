@@ -9,21 +9,22 @@
 extern char __bss_start[RAMSIZE], __bss_end[];
 extern char __data_start[RAMSIZE], __data_end[], __data_lma[RAMSIZE];
 
-extern void main();
-extern void __vector_table();
+extern void main(void);
+extern void __stack_top(void);
+extern void __vector_table(void);
 
-static void init_clocks();
+static void init_clocks(void);
 
-void RESET_Handler() {
+void RESET_Handler(void) {
     // set global pointer and stack pointer
     __asm__ volatile (
             ".option push;"
             ".option norelax;"
             "la     gp, __global_pointer$;"
             ".option pop;"
-            "la     sp, __stack_top"
+            "la     sp, %0"
             : /* no output */
-            : /* no input */
+            : "i" ((uint32_t)(__stack_top)) /* input from immediate */
             : /* no clobbers */);
 
     __asm__ volatile (
@@ -32,6 +33,8 @@ void RESET_Handler() {
             : "r" ((uint32_t)(__vector_table) | 1) /* input from register */
             : /* no clobbers */);
     
+    init_clocks();
+
     // copy data section to SRAM
     char *to = __data_start;
     char *from = __data_lma;
@@ -42,13 +45,11 @@ void RESET_Handler() {
     to = __bss_start;
     while (to < __bss_end)
         *to++ = 0;
-    
-    init_clocks();
 
     main();
 }
 
-static void init_clocks()
+static void init_clocks(void)
 {
     clocks.clk_sys_resus_ctrl = 0;
 

@@ -1,9 +1,14 @@
+#include <stddef.h>
+#include <stdint.h>
 #include <rp2350/clocks.h>
 #include <rp2350/io_bank0.h>
 #include <rp2350/pads_bank0.h>
 #include <rp2350/pll.h>
 #include <rp2350/resets.h>
 #include <rp2350/uart.h>
+
+#include <time.h>
+#include <utils.h>
 
 #include "pl011.h"
 
@@ -31,30 +36,35 @@ void uart_init(void)
     uart0.uartlcr_h = UART_UARTLCR_H_WLEN(3) | UART_UARTLCR_H_FEN_MASK;
 
     uart0.uartcr = UART_UARTCR_RXE_MASK | UART_UARTCR_TXE_MASK | UART_UARTCR_UARTEN_MASK;
+
+    delay(150);
 }
 
 void uart_flush(void)
 {
-    while ((uart0.uartfr & UART_UARTFR_BUSY_MASK) == UART_UARTFR_BUSY_MASK) {}
+    while ((uart0.uartfr & UART_UARTFR_BUSY_MASK) == UART_UARTFR_BUSY_MASK)
+        tight_loop_contents();
 }
 
 static inline void uart_putc_raw(uint8_t c)
 {
-    while ((uart0.uartfr & UART_UARTFR_TXFF_MASK) == UART_UARTFR_TXFF_MASK) {}
+    while ((uart0.uartfr & UART_UARTFR_TXFF_MASK) == UART_UARTFR_TXFF_MASK)
+        tight_loop_contents();
     uart0.uartdr = c;
-#if defined(CONFIG_MACH_RISCV)
-    for (uint32_t i=0; i<150; i++)
-        continue;
-#else
-    while ((uart0.uartfr & UART_UARTFR_BUSY_MASK) == UART_UARTFR_BUSY_MASK) {}
-#endif
+    while ((uart0.uartfr & UART_UARTFR_BUSY_MASK) == UART_UARTFR_BUSY_MASK)
+        tight_loop_contents();
 }
 
 void uart_putc(uint8_t c)
 {
     uart_putc_raw(c);
-    if (c == '\r')
-        uart_putc_raw('\n');
+    if (c == '\n')
+        uart_putc_raw('\r');
+}
+
+void uart_puts(const char *s) {
+    while (*s)
+        uart_putc((uint8_t)(*s++));
 }
 
 uint8_t uart_getc(void)
@@ -64,3 +74,4 @@ uint8_t uart_getc(void)
     c = (uint8_t)uart0.uartdr;
     return c;
 }
+

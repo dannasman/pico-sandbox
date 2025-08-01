@@ -27,11 +27,11 @@ SECTIONS
         __data_end = .;
     } > RAM AT> FLASH
 
-    .bss (NOLOAD) : {
+    .bss : {
         __bss_start = .;
         *(.bss*)
-    }
-    __bss_end = .;
+        __bss_end = .;
+    } > RAM
     __end = .;
 
     __stack_top = ORIGIN(RAM) + LENGTH(RAM);
