@@ -19,17 +19,21 @@ SECTIONS
     } > FLASH
 
     .data : {
+        . = ALIGN(4);
         __data_lma = LOADADDR(.data);
         __data_start = .;
         KEEP(*(.data.vectors))
         KEEP(*(.data))
         *(.data*)
+        . = ALIGN(4);
         __data_end = .;
     } > RAM AT> FLASH
 
     .bss : {
+        . = ALIGN(4);
         __bss_start = .;
         *(.bss*)
+        . = ALIGN(4);
         __bss_end = .;
     } > RAM
     __end = .;
