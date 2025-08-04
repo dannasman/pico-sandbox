@@ -28,6 +28,8 @@ if(TARGET_CORE STREQUAL "cortex-m33")
         -Oz
         -DNDEBUG
         -ffreestanding
+        -ffunction-sections
+        -fdata-sections
         -nostdlib
         -pedantic
     )
@@ -51,6 +53,8 @@ elseif(TARGET_CORE STREQUAL "hazard3")
         -DNDEBUG
         -mabi=ilp32
         -ffreestanding
+        -ffunction-sections
+        -fdata-sections
         -nostdlib
         -pedantic
      )
@@ -67,8 +71,5 @@ target_link_options(sandbox.elf PRIVATE
     -nostartfiles
     -nostdlib
     -Wl,--gc-sections
-    -ffunction-sections
-    -fdata-sections
-    -Xlinker
     -T${CMAKE_SOURCE_DIR}/src/rp2350/linker.ld
 )
