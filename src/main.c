@@ -17,8 +17,8 @@ void main(void) {
     led_on();
 
     uart_flush();
-    const char *test = "Sandbox initialized!\n";
-    uart_puts(test);
+    const char *s = "Sandbox initialized!\n";
+    uart_puts(s); 
 
     for(;;) {
         uint8_t c = uart_getc();
