@@ -18,10 +18,12 @@ static void init_clocks(void);
 void RESET_Handler(void) {
     // set global pointer and stack pointer
     __asm__ volatile (
+#if 0
             ".option push;"
             ".option norelax;"
             "la     gp, __global_pointer$;"
             ".option pop;"
+#endif
             "la     sp, %0"
             : /* no output */
             : "i" ((uint32_t)(__stack_top)) /* input from immediate */
