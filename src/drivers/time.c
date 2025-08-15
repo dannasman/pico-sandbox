@@ -1,7 +1,6 @@
 #include <rp2350/ticks.h>
 #include <rp2350/timer.h>
-
-#include <utils.h>
+#include <util/cpu.h>
 
 #include "time.h"
 
@@ -27,11 +26,12 @@ uint64_t current_us(void)
         hi = next_hi;
     } while (1);
     ret = ((uint64_t) hi << 32u) | lo;
+    ret *= CYCLE_COUNT;
     return ret;
 }
 
-void delay_us(uint32_t delay) {
-    uint32_t start = timer0.timerawl;
-    while (timer0.timerawl - start < delay)
+void delay_us(uint64_t delay) {
+    uint64_t start = current_us();
+    while (current_us() - start < delay)
         tight_loop_contents();
 }

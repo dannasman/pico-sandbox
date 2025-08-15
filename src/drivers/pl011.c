@@ -8,7 +8,7 @@
 #include <rp2350/uart.h>
 
 #include <time.h>
-#include <utils.h>
+#include <util/cpu.h>
 
 #include "pl011.h"
 

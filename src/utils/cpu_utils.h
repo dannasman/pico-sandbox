@@ -1,5 +1,5 @@
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef CPU_UTILS_H
+#define CPU_UTILS_H
 
 static inline void nop(void) __attribute__((always_inline));
 static inline void delay(uint32_t) __attribute__((always_inline));
