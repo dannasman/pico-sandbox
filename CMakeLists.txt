@@ -83,6 +83,7 @@ if(TARGET_CORE STREQUAL "cortex-m33")
         ${CMAKE_SOURCE_DIR}/src/rp2350/arm/*c
         ${CMAKE_SOURCE_DIR}/src/rp2350/*c
         ${CMAKE_SOURCE_DIR}/src/drivers/*c
+        ${CMAKE_SOURCE_DIR}/src/drivers/arm/*c
         ${CMAKE_SOURCE_DIR}/src/utils/*c
         ${CMAKE_SOURCE_DIR}/src/*c
     )
@@ -97,6 +98,7 @@ elseif(TARGET_CORE STREQUAL "hazard3")
         ${CMAKE_SOURCE_DIR}/src/rp2350/riscv/*c
         ${CMAKE_SOURCE_DIR}/src/rp2350/*c
         ${CMAKE_SOURCE_DIR}/src/drivers/*c
+        ${CMAKE_SOURCE_DIR}/src/drivers/riscv/*c
         ${CMAKE_SOURCE_DIR}/src/utils/*c
         ${CMAKE_SOURCE_DIR}/src/*c
     )

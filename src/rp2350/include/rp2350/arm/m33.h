@@ -3,6 +3,9 @@
 
 #include <stdint.h>
 
+#define _u(v)           (uint32_t)(v)
+#define ALL1            _u(0xffffffff)
+
 typedef struct{
 		uint32_t itm_stim0;
 		uint32_t itm_stim1;
@@ -391,4 +394,11 @@ typedef struct{
 } m33_regs;
 
 #define m33 (*(volatile m33_regs*)(0xe0000000))
+
+#define M33_DWT_CTRL_CYCCNTENA(v)           ((_u(v) & _u(0x1)) << _u(0))
+#define M33_DWT_CTRL_CYCCNTENA_MASK         M33_DWT_CTRL_CYCCNTENA(ALL1)
+
+#define M33_DEMCR_TRCENA(v)                 ((_u(v) & _u(0x1)) << _u(24))
+#define M33_DEMCR_TRCENA_MASK               M33_DEMCR_TRCENA(ALL1)
+
 #endif
