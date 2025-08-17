@@ -80,6 +80,7 @@ option(TARGET_CORE "Target core architecture: cortex-m33 or hazard3" "cortex-m33
 if(TARGET_CORE STREQUAL "cortex-m33")
     add_definitions(-DCONFIG_MACH_ARM)
     file(GLOB SOURCES
+        ${CMAKE_SOURCE_DIR}/lib/*c
         ${CMAKE_SOURCE_DIR}/src/rp2350/arm/*c
         ${CMAKE_SOURCE_DIR}/src/rp2350/*c
         ${CMAKE_SOURCE_DIR}/src/drivers/*c
@@ -95,6 +96,7 @@ if(TARGET_CORE STREQUAL "cortex-m33")
 elseif(TARGET_CORE STREQUAL "hazard3")
     add_definitions(-DCONFIG_MACH_RISCV)
     file(GLOB SOURCES
+        ${CMAKE_SOURCE_DIR}/lib/*c
         ${CMAKE_SOURCE_DIR}/src/rp2350/riscv/*c
         ${CMAKE_SOURCE_DIR}/src/rp2350/*c
         ${CMAKE_SOURCE_DIR}/src/drivers/*c
@@ -112,6 +114,7 @@ else()
 endif()
 
 target_include_directories(sandbox.elf PRIVATE
+    ${CMAKE_SOURCE_DIR}/lib/include
     ${CMAKE_SOURCE_DIR}/src/rp2350/include
     ${CMAKE_SOURCE_DIR}/src/include
 )
