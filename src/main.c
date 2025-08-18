@@ -42,12 +42,14 @@ void measure_fft(void)
         size = 1024;
 
     for (uint32_t i = 0; i < size; i++) {
-        int32_t r = uart_getc();
-        input[i].r = (r-128) << 24;
+        int64_t r = uart_getc();
+        r = (r - 128) << 24;
+        if (r > INT32_MAX) r = INT32_MAX;
+        if (r < INT32_MIN) r = INT32_MIN;
+        input[i].r = (int32_t)r;
         input[i].i = 0;
     }
 
-    //log("Payload received");
     // notify host: ready to send output
     for (uint32_t i = 0; i < 3; i++)
         uart_putc(0x3);
@@ -90,7 +92,6 @@ void main(void) {
     uart_init();
     uart_flush();
     led_on();
-    //log("Sandbox initialized");
 
     measure_fft();
 
