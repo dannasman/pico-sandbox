@@ -44,6 +44,9 @@ plt.plot(results["h3_clang"]["fft"], label=f"Hazard3 (Clang), {results['h3_clang
 plt.plot(results["m33_clang"]["fft"], label=f"Cortex-M33 (Clang), {results['m33_clang']['cycle_avg']} cycles")
 plt.grid()
 plt.legend()
+plt.tight_layout()
+
+
 
 plt.figure()
 cycle_meas = [
@@ -58,10 +61,12 @@ labels = [
     "Hazard3 (GCC)",
     "ARM Cortex-M33 (GCC)",
 ]
-plt.bar([0, 1, 2, 3], cycle_meas)
-plt.xticks([0, 1, 2, 3], labels)
-plt.ylabel("Cycles")
-plt.title("Pico 2 FFT cycle measurements")
+plt.bar([0, 1, 2, 3], cycle_meas, color=["red", "blue", "green", "orange"])
+plt.xticks([0, 1, 2, 3], labels, fontsize=8)
+plt.ylabel("CPU cycles")
+plt.title("Pico 2 FFT CPU cycle measurements")
 plt.tight_layout()
+
+plt.savefig("figures/fft_cycles.svg", format="svg")
 
 plt.show()
