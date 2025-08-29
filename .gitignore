@@ -3,5 +3,4 @@ llvm-project
 toolchain
 sandbox
 *.swp
-elf2uf2
 env.sh
