@@ -280,7 +280,7 @@ void fft(complex_t *a, uint32_t n, bool inv)
             for (uint32_t j = 0; j < (len >> 1); j++) {
                 uint32_t theta = (j*1024) / len;
                 int32_t cos = cos_lut[theta];
-                int32_t sin = cos_lut[(theta+256) % 1024];
+                int32_t sin = cos_lut[(theta+768) % 1024];
                 if (inv) sin = -sin;
                 complex_t w = {
                     .r = cos,
