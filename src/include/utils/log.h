@@ -3,7 +3,7 @@
 
 #include <time.h>
 #include <pl011.h>
-#include <util/string.h>
+#include <utils/string.h>
 
 static inline void log(const char * msg) {
     uint64_t time64;

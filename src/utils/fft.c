@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <stdbool.h>
-#include <complex.h>
+#include <utils/complex.h>
 
 const int32_t cos_lut[1024] = {
     2147483647, 2147443221, 2147321945, 2147119824,
@@ -262,6 +262,8 @@ const int32_t cos_lut[1024] = {
 };
 void fft(complex_t *a, uint32_t n, bool inv)
 {
+    complex_t u, v, w;
+    uint32_t theta, cos, sin;
     for (uint32_t i = 1, j = 0; i < n; i++) {
         uint32_t bit = n >> 1;
         for (; j & bit; bit >>= 1)
@@ -278,21 +280,20 @@ void fft(complex_t *a, uint32_t n, bool inv)
     for (uint32_t len = 2; len <= n; len <<= 1) {
         for (uint32_t i = 0; i < n; i += len) {
             for (uint32_t j = 0; j < (len >> 1); j++) {
-                uint32_t theta = (j*1024) / len;
-                int32_t cos = cos_lut[theta];
-                int32_t sin = cos_lut[(theta+768) % 1024];
+                theta = (j*1024) / len;
+                cos = cos_lut[theta];
+                sin = cos_lut[(theta+768) % 1024];
                 if (inv) sin = -sin;
-                complex_t w = {
-                    .r = cos,
-                    .i = sin
-                };
-                complex_t u = a[i+j], v = cmul(a[i+j+(len >> 1)], w);
+                w.r = cos;
+                w.i = sin;
+                u = a[i+j];
+                v = cmul(a[i+j+(len >> 1)], w);
                 a[i+j] = cadd(u, v);
                 a[i+j+(len >> 1)] = csub(u, v);
                 a[i + j].r >>= 1;
                 a[i + j].i >>= 1;
-                a[i + j + len / 2].r >>= 1;
-                a[i + j + len / 2].i >>= 1;
+                a[i + j + (len >> 1)].r >>= 1;
+                a[i + j + (len >> 1)].i >>= 1;
             }
         }
     }

@@ -1,12 +1,12 @@
 #include <stddef.h>
 #include <stdbool.h>
-#include <fft.h>
 #include <gpio.h>
 #include <led.h>
 #include <pl011.h>
 #include <time.h>
-#include <util/cpu.h>
-#include <util/log.h>
+#include <utils/fft.h>
+#include <utils/cpu.h>
+#include <utils/log.h>
 
 #if defined(CONFIG_MACH_RISCV)
 #include <csr.h>
