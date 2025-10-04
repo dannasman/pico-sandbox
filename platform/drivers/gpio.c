@@ -41,7 +41,7 @@ uint8_t get_irq_status_for_pin(uint8_t pin)
 #ifdef CONFIG_MACH_RISCV
 void __attribute__((interrupt, section(".data"))) IO_IRQ_BANK0_Handler(void)
 #else
-void IO_IRQ_BANK0_HANDLER(void)
+void IO_IRQ_BANK0_Handler(void)
 #endif
 {
     for (uint8_t i=0; i<4; i++)

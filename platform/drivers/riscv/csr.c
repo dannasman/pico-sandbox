@@ -1,4 +1,4 @@
-#include "csr.h"
+#include "riscv/csr.h"
 
 void csr_init(void)
 {

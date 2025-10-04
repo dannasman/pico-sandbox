@@ -1,4 +1,4 @@
-#include <rp2350/arm/m33.h>
+#include <arm/rp2350/m33.h>
 #include <rp2350/clocks.h>
 #include <rp2350/pll.h>
 #include <rp2350/resets.h>

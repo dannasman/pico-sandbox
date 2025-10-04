@@ -401,4 +401,13 @@ typedef struct{
 #define M33_DEMCR_TRCENA(v)                 ((_u(v) & _u(0x1)) << _u(24))
 #define M33_DEMCR_TRCENA_MASK               M33_DEMCR_TRCENA(ALL1)
 
+#define M33_NVIC_IPR_PRI_N3         ((_u(v) & _u(0xf)) << _u(28))
+#define M33_NVIC_IPR_PRI_N3_MASK    M33_NVIC_IPR_PRI_N3(ALL1)
+#define M33_NVIC_IPR_PRI_N2         ((_u(v) & _u(0xf)) << _u(20))
+#define M33_NVIC_IPR_PRI_N2_MASK    M33_NVIC_IPR_PRI_N2(ALL1)
+#define M33_NVIC_IPR_PRI_N1         ((_u(v) & _u(0xf)) << _u(12))
+#define M33_NVIC_IPR_PRI_N1_MASK    M33_NVIC_IPR_PRI_N1(ALL1)
+#define M33_NVIC_IPR_PRI_N0         ((_u(v) & _u(0xf)) << _u(4))
+#define M33_NVIC_IPR_PRI_N0_MASK    M33_NVIC_IPR_PRI_N0(ALL1)
+
 #endif

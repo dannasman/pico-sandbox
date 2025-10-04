@@ -1,4 +1,4 @@
-#include <rp2350/arm/m33.h>
+#include <arm/rp2350/m33.h>
 
 void dwt_init(void)
 {

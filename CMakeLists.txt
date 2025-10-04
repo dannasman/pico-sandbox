@@ -80,29 +80,30 @@ option(TARGET_CORE "Target core architecture: cortex-m33 or hazard3" "cortex-m33
 if(TARGET_CORE STREQUAL "cortex-m33")
     add_definitions(-DCONFIG_MACH_ARM)
     file(GLOB SOURCES
-        ${CMAKE_SOURCE_DIR}/lib/*c
-        ${CMAKE_SOURCE_DIR}/src/rp2350/arm/*c
-        ${CMAKE_SOURCE_DIR}/src/rp2350/*c
-        ${CMAKE_SOURCE_DIR}/src/drivers/*c
-        ${CMAKE_SOURCE_DIR}/src/drivers/arm/*c
-        ${CMAKE_SOURCE_DIR}/src/utils/*c
-        ${CMAKE_SOURCE_DIR}/src/*c
+        ${CMAKE_SOURCE_DIR}/platform/hw/arm/*c
+        ${CMAKE_SOURCE_DIR}/platform/hw/*c
+        ${CMAKE_SOURCE_DIR}/platform/drivers/*c
+        ${CMAKE_SOURCE_DIR}/platform/drivers/arm/*c
+        ${CMAKE_SOURCE_DIR}/platform/utils/*c
+        ${CMAKE_SOURCE_DIR}/platform/*c
     )
 
     add_executable(sandbox.elf ${SOURCES})
+    target_include_directories(sandbox.elf PRIVATE
+        ${CMAKE_SOURCE_DIR}/platform/include/arm
+    )
 
     message(STATUS "Configuring for Cortex-M33")
     target_compile_options(sandbox.elf PRIVATE ${COPTS})
 elseif(TARGET_CORE STREQUAL "hazard3")
     add_definitions(-DCONFIG_MACH_RISCV)
     file(GLOB SOURCES
-        ${CMAKE_SOURCE_DIR}/lib/*c
-        ${CMAKE_SOURCE_DIR}/src/rp2350/riscv/*c
-        ${CMAKE_SOURCE_DIR}/src/rp2350/*c
-        ${CMAKE_SOURCE_DIR}/src/drivers/*c
-        ${CMAKE_SOURCE_DIR}/src/drivers/riscv/*c
-        ${CMAKE_SOURCE_DIR}/src/utils/*c
-        ${CMAKE_SOURCE_DIR}/src/*c
+        ${CMAKE_SOURCE_DIR}/platform/hw/riscv/*c
+        ${CMAKE_SOURCE_DIR}/platform/hw/*c
+        ${CMAKE_SOURCE_DIR}/platform/drivers/*c
+        ${CMAKE_SOURCE_DIR}/platform/drivers/riscv/*c
+        ${CMAKE_SOURCE_DIR}/platform/utils/*c
+        ${CMAKE_SOURCE_DIR}/platform/*c
     )
 
     add_executable(sandbox.elf ${SOURCES})
@@ -115,13 +116,12 @@ endif()
 
 target_include_directories(sandbox.elf PRIVATE
     ${CMAKE_SOURCE_DIR}/lib/include
-    ${CMAKE_SOURCE_DIR}/src/rp2350/include
-    ${CMAKE_SOURCE_DIR}/src/include
+    ${CMAKE_SOURCE_DIR}/platform/include
 )
 
 target_link_options(sandbox.elf PRIVATE
     -nostartfiles
     -nostdlib
     -Wl,--gc-sections
-    -T${CMAKE_SOURCE_DIR}/src/rp2350/linker.ld
+    -T${CMAKE_SOURCE_DIR}/platform/hw/linker.ld
 )

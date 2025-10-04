@@ -6,6 +6,9 @@
 #include <rp2350/pll.h>
 #include <rp2350/resets.h>
 #include <rp2350/uart.h>
+#ifdef CONFIG_MACH_ARM
+#include <arm/rp2350/m33.h>
+#endif
 
 #include <time.h>
 #include <utils/cpu.h>
@@ -75,3 +78,12 @@ uint8_t uart_getc(void)
     return c;
 }
 
+#ifdef CONFIG_MACH_ARM
+void UART0_IRQ_Handler(void)
+{
+}
+#else
+void __attribute__((interrupt, section(".data"))) UART0_IRQ_Handler(void)
+{
+}
+#endif

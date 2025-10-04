@@ -2,9 +2,9 @@
 #define CPU_UTILS_H
 
 #if defined(CONFIG_MACH_RISCV)
-#include <csr.h>
+#include <riscv/csr.h>
 #else
-#include <rp2350/arm/m33.h>
+#include <arm/rp2350/m33.h>
 #endif
 
 static inline uint32_t cycle_count(void);
