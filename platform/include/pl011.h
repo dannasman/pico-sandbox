@@ -10,4 +10,6 @@ void uart_putc(uint8_t);
 void uart_puts(const char *);
 uint8_t uart_getc(void);
 
+void UART0_IRQ_Handler(void);
+
 #endif
