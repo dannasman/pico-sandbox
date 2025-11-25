@@ -9,8 +9,10 @@
 
 #if defined(CONFIG_MACH_RISCV)
 #include <riscv/csr.h>
+#include <riscv/irq.h>
 #else
 #include <arm/dwt.h>
+#include <arm/irq.h>
 #endif
 
 void main(void) {
@@ -18,18 +20,21 @@ void main(void) {
     tick_generator_init();
 #if defined(CONFIG_MACH_RISCV)
     csr_init();
+    irq_init();
 #else
     dwt_init();
 #endif
     gpio_init();
     led_init();
     uart_init();
-    uart_flush();
-    led_on();
 
-    uart_puts("Sandbox initialized!");
+    //uart_flush();
+
+    led_on();
+    uart_puts("Sandbox initialized!\n");
 
     for(;;) {
-        tight_loop_contents();
+        byte = uart_getc();
+        uart_putc(byte);
     }
 }
