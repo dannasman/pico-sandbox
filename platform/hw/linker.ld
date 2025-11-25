@@ -23,6 +23,7 @@ SECTIONS
         __data_lma = LOADADDR(.data);
         __data_start = .;
         KEEP(*(.data.vectors))
+        KEEP(*(.data.soft_vectors))
         KEEP(*(.data))
         *(.data*)
         . = ALIGN(4);
