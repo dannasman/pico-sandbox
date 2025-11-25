@@ -35,6 +35,10 @@ static inline void delay(uint32_t n)
         __asm__ volatile ("nop");
 }
 
+static inline void wfi(void) {
+    __asm__ volatile ("wfi");
+}
+
 static inline void tight_loop_contents(void) {}
 
 #endif
