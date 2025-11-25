@@ -8,7 +8,7 @@
 void irq_enable(uint32_t irq_no, uint32_t pri)
 {
     /* FIXME: assertions... */
-    if (irq_no >= 64 || pri > 15) return;
+    if (irq_no > 63 || pri > 15) return;
 
     const uint32_t ipr_no = irq_no / 4U;
     const uint32_t pri_no = irq_no % 4U;
@@ -77,5 +77,4 @@ void irq_enable(uint32_t irq_no, uint32_t pri)
     } else {
         m33.nvic_icpr1 = (1U << (irq_no - 32U));
     }
-
 }
