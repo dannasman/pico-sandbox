@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.22)
 
 project(pico2_sandbox)
 
-
 if(TOOLCHAIN STREQUAL "clang")
     set(TOOLCHAIN_PATH "${CMAKE_SOURCE_DIR}/toolchain/llvm/bin")
     set(CMAKE_C_COMPILER "${TOOLCHAIN_PATH}/clang")
@@ -107,6 +106,9 @@ elseif(TARGET_CORE STREQUAL "hazard3")
     )
 
     add_executable(sandbox.elf ${SOURCES})
+    target_include_directories(sandbox.elf PRIVATE
+        ${CMAKE_SOURCE_DIR}/platform/include/riscv
+    )
 
     message(STATUS "Configuring for Hazard3 (RISC-V)")
     target_compile_options(sandbox.elf PRIVATE ${COPTS})
