@@ -22,8 +22,6 @@ SECTIONS
         . = ALIGN(4);
         __data_lma = LOADADDR(.data);
         __data_start = .;
-        KEEP(*(.data.vectors))
-        KEEP(*(.data.soft_vectors))
         KEEP(*(.data))
         *(.data*)
         . = ALIGN(4);
@@ -33,7 +31,11 @@ SECTIONS
     .bss : {
         . = ALIGN(4);
         __bss_start = .;
-        *(.bss*)
+        *(.bss)
+        *(.bss.*)
+        PROVIDE(__global_pointer$ = . + 2K);
+        *(.sbss)
+        *(.sbss.*)
         . = ALIGN(4);
         __bss_end = .;
     } > RAM
