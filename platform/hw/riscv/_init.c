@@ -17,15 +17,35 @@ static const uint32_t __attribute__((used, section(".embedded_block"))) __embedd
 };
 
 // TODO: figure out why DEFAULT_Handler can not be used...
+#if CONFIG_COMPILER_GCC
+__attribute__ ((interrupt("machine"), aligned(4)))
+void default_handler(void);
 
-void __attribute__ ((interrupt("machine"), section(".data"), aligned(4))) default_handler(void);
+__attribute__ ((interrupt("machine"), weak, alias("default_handler")))
+void MTVEC_EXCEPTION_Handler(void);
+__attribute__ ((interrupt("machine"), weak, alias("default_handler")))
+void MTVEC_MSI_Handler(void);
+__attribute__ ((interrupt("machine"), weak, alias("default_handler")))
+void MTVEC_MTI_Handler(void);
+__attribute__ ((interrupt("machine"), weak, alias("default_handler")))
+void MTVEC_MEI_Handler(void);
+#else
+__attribute__ ((interrupt("machine"), section(".data"), aligned(4)))
+void default_handler(void);
 
-void __attribute__ ((interrupt("machine"), weak, alias("default_handler"), section(".data"))) MTVEC_EXCEPTION_Handler(void);
-void __attribute__ ((interrupt("machine"), weak, alias("default_handler"), section(".data"))) MTVEC_MSI_Handler(void);
-void __attribute__ ((interrupt("machine"), weak, alias("default_handler"), section(".data"))) MTVEC_MTI_Handler(void);
-void __attribute__ ((interrupt("machine"), weak, alias("default_handler"), section(".data"))) MTVEC_MEI_Handler(void);
+__attribute__ ((interrupt("machine"), weak, alias("default_handler"), section(".data")))
+void MTVEC_EXCEPTION_Handler(void);
+__attribute__ ((interrupt("machine"), weak, alias("default_handler"), section(".data")))
+void MTVEC_MSI_Handler(void);
+__attribute__ ((interrupt("machine"), weak, alias("default_handler"), section(".data")))
+void MTVEC_MTI_Handler(void);
+__attribute__ ((interrupt("machine"), weak, alias("default_handler"), section(".data")))
+void MTVEC_MEI_Handler(void);
+#endif
 
-void __attribute__ ((naked, section(".data.vectors"), aligned(256)))  __vector_table(void)
+#if CONFIG_COMPILER_GCC
+ __attribute__ ((naked, aligned(64)))
+void __vector_table(void)
 {
     __asm__ volatile (
             ".org       __vector_table + 0*4;"
@@ -40,6 +60,24 @@ void __attribute__ ((naked, section(".data.vectors"), aligned(256)))  __vector_t
             : /* immediate input */
             : /* no clobbers */);
 }
+#else
+ __attribute__ ((naked, section(".data"), aligned(64)))
+void __vector_table(void)
+{
+    __asm__ volatile (
+            ".org       __vector_table + 0*4;"
+            "jal        zero, MTVEC_EXCEPTION_Handler;"
+            ".org       __vector_table + 3*4;"
+            "jal        zero, MTVEC_MSI_Handler;"
+            ".org       __vector_table + 7*4;"
+            "jal        zero, MTVEC_MTI_Handler;"
+            ".org       __vector_table + 11*4;"
+            "jal        zero, MTVEC_MEI_Handler;"
+            : /* no output */
+            : /* immediate input */
+            : /* no clobbers */);
+}
+#endif
 
 void default_handler(void)
 {

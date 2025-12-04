@@ -8,7 +8,9 @@
 
 extern void __vector_table(void);
 
+#if CONFIG_COMPILER_CLANG
 __attribute__ ((section(".data.soft_vectors"), aligned(16)))
+#endif
 void (*const irq_handlers[52])(void) = {
     [33] = &UART0_IRQ_Handler,
 };
@@ -71,8 +73,12 @@ static inline void irq_restore_context(void)
             "lw t6, 60(sp);"
             "addi sp, sp, 64;");
 }
-
-void __attribute__ ((interrupt ("machine"), section(".data"), aligned(4))) MTVEC_MEI_Handler(void)
+#if CONFIG_COMPILER_GCC
+__attribute__ ((interrupt ("machine"), aligned(4)))
+#else
+__attribute__ ((interrupt ("machine"), section(".data"), aligned(4)))
+#endif
+void MTVEC_MEI_Handler(void)
 {
     irq_save_context();
 

@@ -11,7 +11,6 @@ extern char __data_start[RAMSIZE], __data_end[], __data_lma[RAMSIZE];
 
 extern void main(void);
 extern void __stack_top(void);
-//extern void __vector_table(void);
 
 static void init_clocks(void);
 
@@ -28,14 +27,6 @@ void RESET_Handler(void) {
             : /* no output */
             : "i" ((uint32_t)(&__stack_top)) /* input from immediate */
             : /* no clobbers */);
-
-#if 0
-    __asm__ volatile (
-            "csrw   mtvec, %0"
-            : /* no output */
-            : "r" ((uint32_t)(&__vector_table) + 1U) /* input from register */
-            : /* no clobbers */);
-#endif
     
     init_clocks();
 
