@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <stdbool.h>
-#include <utils/complex.h>
+#include <lib/complex.h>
 
 const int32_t cos_lut[1024] = {
     2147483647, 2147443221, 2147321945, 2147119824,

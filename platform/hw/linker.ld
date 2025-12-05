@@ -39,6 +39,13 @@ SECTIONS
         . = ALIGN(4);
         __bss_end = .;
     } > RAM
+
+    .heap (NOLOAD) : {
+        __heap_start = .;
+        . += 0x10000;
+        __heap_end = .;
+    } > RAM
+
     __end = .;
 
     __stack_top = ORIGIN(RAM) + LENGTH(RAM);

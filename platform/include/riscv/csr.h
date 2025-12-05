@@ -88,6 +88,13 @@ static inline void csr_write_meiea(uint32_t value) {
                       : /* clobbers: none */);
 }
 
+static inline void csr_set_bits_meiea(uint32_t mask) {
+    __asm__ volatile ("csrrs    zero, 0xbe0, %0"
+                      : /* output: none */
+                      : "r" (mask)  /* input : register */
+                      : /* clobbers: none */);
+}
+
 static inline void csr_write_meifa(uint32_t value) {
     __asm__ volatile ("csrw    0xbe2, %0"
                       : /* output: none */

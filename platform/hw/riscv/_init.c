@@ -61,7 +61,8 @@ void __vector_table(void)
             : /* no clobbers */);
 }
 #else
- __attribute__ ((naked, section(".data"), aligned(64)))
+/* FIXME: 256-byte alignment magically works, but 64-byte alignment does not */
+ __attribute__ ((naked, section(".data"), aligned(256)))
 void __vector_table(void)
 {
     __asm__ volatile (
@@ -79,8 +80,11 @@ void __vector_table(void)
 }
 #endif
 
+#include <led.h>
+
 void default_handler(void)
 {
+    led_off();
     resets.reset = 0x1ffffff;
     __asm__ volatile ("csrrc x0, mstatus, %0" :: "r"(0x8));
     while(1)

@@ -85,7 +85,8 @@ if(TARGET_CORE STREQUAL "cortex-m33")
         ${CMAKE_SOURCE_DIR}/platform/hw/*c
         ${CMAKE_SOURCE_DIR}/platform/drivers/*c
         ${CMAKE_SOURCE_DIR}/platform/drivers/arm/*c
-        ${CMAKE_SOURCE_DIR}/platform/utils/*c
+        ${CMAKE_SOURCE_DIR}/platform/shell/*c
+        ${CMAKE_SOURCE_DIR}/platform/lib/*c
         ${CMAKE_SOURCE_DIR}/platform/*c
     )
 
@@ -103,7 +104,8 @@ elseif(TARGET_CORE STREQUAL "hazard3")
         ${CMAKE_SOURCE_DIR}/platform/hw/*c
         ${CMAKE_SOURCE_DIR}/platform/drivers/*c
         ${CMAKE_SOURCE_DIR}/platform/drivers/riscv/*c
-        ${CMAKE_SOURCE_DIR}/platform/utils/*c
+        ${CMAKE_SOURCE_DIR}/platform/shell/*c
+        ${CMAKE_SOURCE_DIR}/platform/lib/*c
         ${CMAKE_SOURCE_DIR}/platform/*c
     )
 

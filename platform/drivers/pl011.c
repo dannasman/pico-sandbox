@@ -1,6 +1,8 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <cpu.h>
+#include <time.h>
 #include <rp2350/clocks.h>
 #include <rp2350/io_bank0.h>
 #include <rp2350/pads_bank0.h>
@@ -10,20 +12,17 @@
 
 #ifdef CONFIG_MACH_RISCV
 #include <riscv/irq.h>
-#define UART0_IRQ_NO    33U
-#define UART0_IRQ_PRI   1U
-#define UART1_IRQ_NO    34U
-#define UART1_IRQ_PRI   1U
 #else
 #include <arm/irq.h>
+#endif
 #define UART0_IRQ_NO    33U
 #define UART0_IRQ_PRI   1U
 #define UART1_IRQ_NO    34U
 #define UART1_IRQ_PRI   1U
-#endif
-
-#include <time.h>
-#include <utils/cpu.h>
+#define UART0_IRQ_NO    33U
+#define UART0_IRQ_PRI   1U
+#define UART1_IRQ_NO    34U
+#define UART1_IRQ_PRI   1U
 
 #include "pl011.h"
 #include "led.h"

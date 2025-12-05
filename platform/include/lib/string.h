@@ -1,5 +1,5 @@
-#ifndef STRING_UTILS_H
-#define STRING_UTILS_H
+#ifndef STRING_H
+#define STRING_H
 
 static inline char* u32_to_str(uint32_t n, char *s)
 {

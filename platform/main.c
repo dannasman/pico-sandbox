@@ -2,10 +2,10 @@
 #include <stdbool.h>
 #include <gpio.h>
 #include <led.h>
+#include <log.h>
 #include <pl011.h>
 #include <time.h>
-#include <utils/cpu.h>
-#include <utils/log.h>
+#include <cpu.h>
 
 #if defined(CONFIG_MACH_RISCV)
 #include <riscv/csr.h>
@@ -28,10 +28,8 @@ void main(void) {
     led_init();
     uart_init();
 
-    //uart_flush();
-
     led_on();
-    uart_puts("Sandbox initialized!\n");
+    log("Sandbox initialized!");
 
     for(;;) {
         byte = uart_getc();

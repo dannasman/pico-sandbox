@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <riscv/csr.h>
 #include <rp2350/resets.h>
-#include <utils/cpu.h>
+#include <cpu.h>
 
 #include "irq.h"
 #include "pl011.h"
@@ -27,7 +27,7 @@ void irq_enable(uint32_t irq_no, uint32_t pri)
 {
     uint32_t index = irq_no / 16U;
     uint32_t mask = 1U << (irq_no % 16U);
-    __asm__ volatile ("csrs 0xbe0, %0" : : "r" (index | (mask << 16)));
+    csr_set_bits_meiea(index | (mask << 16));
 }
 
 static inline void irq_save_context(void)

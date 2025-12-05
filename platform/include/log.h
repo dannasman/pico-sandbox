@@ -3,9 +3,9 @@
 
 #include <time.h>
 #include <pl011.h>
-#include <utils/string.h>
+#include <lib/string.h>
 
-static inline void log(const char * msg) {
+static inline void log(const char *msg) {
     uint64_t time64;
     uint32_t time;
     char s[21];

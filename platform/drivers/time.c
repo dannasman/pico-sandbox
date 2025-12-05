@@ -1,6 +1,6 @@
 #include <rp2350/ticks.h>
 #include <rp2350/timer.h>
-#include <utils/cpu.h>
+#include <cpu.h>
 
 #include "time.h"
 
