@@ -10,7 +10,8 @@ static void fs_time_read(char *buf, size_t n)
     if (n >= 21) {
         char tbuf[21];
         const char *tstr = u64_to_str(t, tbuf);
-        for (size_t i = 0; i < 21; i++) buf[i] = tstr[i];
+        const size_t len = strlen(tstr);
+        for (size_t i = 0; i <= len; i++) buf[i] = tstr[i];
     }
 }
 
