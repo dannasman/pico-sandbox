@@ -1,5 +1,4 @@
 #include <stddef.h>
-#include <stdint.h>
 #include <stdbool.h>
 #include <cpu.h>
 #include <time.h>
@@ -114,6 +113,8 @@ void uart_putc(uint8_t c)
     if (c == '\n')
         uart_putc_raw('\r');
     uart_putc_raw(c);
+    if (c == '\r')
+        uart_putc_raw('\n');
 }
 
 void uart_puts(const char *s) {

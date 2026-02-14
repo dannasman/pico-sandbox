@@ -1,19 +1,26 @@
-#include <stddef.h>
 #include <stdint.h>
 
 #include "lib/alloc.h"
 
-extern uint8_t heap_begin[];
-extern uint8_t heap_end[];
+#include <pl011.h>
+#include <lib/string.h>
 
-static uint8_t* heap_next = heap_begin;
+#define HEAPSIZE (0x10000)
+
+extern char __heap_start[HEAPSIZE];
+extern char __heap_end[];
+
+static size_t heap_next = 0;
 
 void *p2s_alloc(size_t sz) {
-    if (heap_next + sz > heap_end) {
+    sz = (sz + 7) & ~7;
+
+    if (heap_next + sz > HEAPSIZE) {
         return NULL;
     }
 
-    void *p = heap_next + sz;
+    void *p = (void *)&__heap_start[heap_next];
     heap_next += sz;
+
     return p;
 }

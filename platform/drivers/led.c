@@ -36,6 +36,10 @@ void led_off(void)
     sio.gpio_out_clr = (1 << 25);
 }
 
+bool led_state(void) {
+    return ((sio.gpio_out & (1 << 25)) == 0) ? false : true;
+}
+
 void led_toggle(void)
 {
     sio.gpio_out_xor = (1 << 25);

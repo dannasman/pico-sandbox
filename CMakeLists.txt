@@ -19,7 +19,8 @@ if(TOOLCHAIN STREQUAL "clang")
             -ffunction-sections
             -fdata-sections
             -nostdlib
-            -pedantic)
+            -pedantic
+            -Weverything)
     elseif(TARGET_CORE STREQUAL "hazard3")
         set(COPTS
             --target=riscv32-unknown-elf
@@ -32,7 +33,8 @@ if(TOOLCHAIN STREQUAL "clang")
             -ffunction-sections
             -fdata-sections
             -nostdlib
-            -pedantic)
+            -pedantic
+            -Weverything)
     else()
         message(FATAL_ERROR "Unknown TARGET_CORE: ${TARGET_CORE}. Use cortex-m33 or hazard3.")
     endif()
@@ -53,7 +55,9 @@ elseif(TOOLCHAIN STREQUAL "gcc")
             -ffunction-sections
             -fdata-sections
             -nostdlib
-            -pedantic)
+            -pedantic
+            -Wall
+            -Wextra)
     elseif(TARGET_CORE STREQUAL "hazard3")   
         set(TOOLCHAIN_PATH "${CMAKE_SOURCE_DIR}/toolchain/gcc-riscv/bin")
         set(CMAKE_C_COMPILER "${TOOLCHAIN_PATH}/riscv32-unknown-elf-gcc")
@@ -68,7 +72,9 @@ elseif(TOOLCHAIN STREQUAL "gcc")
             -ffunction-sections
             -fdata-sections
             -nostdlib
-            -pedantic)
+            -pedantic
+            -Wall
+            -Wextra)
     else()
         message(FATAL_ERROR "Unknown TARGET_CORE: ${TARGET_CORE}. Use cortex-m33 or hazard3.")
     endif()
@@ -87,6 +93,7 @@ if(TARGET_CORE STREQUAL "cortex-m33")
         ${CMAKE_SOURCE_DIR}/platform/drivers/arm/*c
         ${CMAKE_SOURCE_DIR}/platform/shell/*c
         ${CMAKE_SOURCE_DIR}/platform/lib/*c
+        ${CMAKE_SOURCE_DIR}/platform/fs/*c
         ${CMAKE_SOURCE_DIR}/platform/*c
     )
 
@@ -106,6 +113,7 @@ elseif(TARGET_CORE STREQUAL "hazard3")
         ${CMAKE_SOURCE_DIR}/platform/drivers/riscv/*c
         ${CMAKE_SOURCE_DIR}/platform/shell/*c
         ${CMAKE_SOURCE_DIR}/platform/lib/*c
+        ${CMAKE_SOURCE_DIR}/platform/fs/*c
         ${CMAKE_SOURCE_DIR}/platform/*c
     )
 
@@ -131,3 +139,4 @@ target_link_options(sandbox.elf PRIVATE
     -Wl,--gc-sections
     -T${CMAKE_SOURCE_DIR}/platform/hw/linker.ld
 )
+

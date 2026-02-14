@@ -10,7 +10,7 @@ void default_handler(void)
     resets.reset = 0x1ffffff;
     __asm__("CPSID i");
     while(1)
-        __asm__("wfi");
+        __asm__ volatile ("wfi":::"memory");
 }
 
 void __attribute__ ((weak, alias("default_handler"))) NMI_Handler(void);

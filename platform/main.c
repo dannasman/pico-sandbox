@@ -1,11 +1,13 @@
 #include <stddef.h>
 #include <stdbool.h>
+#include <fs.h>
 #include <gpio.h>
 #include <led.h>
 #include <log.h>
 #include <pl011.h>
 #include <time.h>
 #include <cpu.h>
+#include <shell.h>
 
 #if defined(CONFIG_MACH_RISCV)
 #include <riscv/csr.h>
@@ -27,12 +29,17 @@ void main(void) {
     gpio_init();
     led_init();
     uart_init();
+    fs_init();
+    shell_init();
 
-    led_on();
     log("Sandbox initialized!");
+    led_on();
 
+    shell_run();
+#if 0
     for(;;) {
         byte = uart_getc();
         uart_putc(byte);
     }
+#endif
 }

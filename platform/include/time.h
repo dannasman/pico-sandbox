@@ -1,6 +1,8 @@
 #ifndef TIME_H
 #define TIME_H
 
+#include <stdint.h>
+
 #define CYCLE_COUNT 12  
 
 void tick_generator_init(void);

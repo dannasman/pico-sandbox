@@ -19,29 +19,27 @@ SECTIONS
     } > FLASH
 
     .data : {
-        . = ALIGN(4);
         __data_lma = LOADADDR(.data);
         __data_start = .;
         KEEP(*(.data))
         *(.data*)
-        . = ALIGN(4);
         __data_end = .;
     } > RAM AT> FLASH
 
     .bss : {
-        . = ALIGN(4);
         __bss_start = .;
         *(.bss)
         *(.bss.*)
         PROVIDE(__global_pointer$ = . + 2K);
         *(.sbss)
         *(.sbss.*)
-        . = ALIGN(4);
         __bss_end = .;
     } > RAM
 
     .heap (NOLOAD) : {
+        . = ALIGN(8);
         __heap_start = .;
+        KEEP(*(.heap))
         . += 0x10000;
         __heap_end = .;
     } > RAM
