@@ -4,8 +4,6 @@ MEMORY
     RAM     (rwx)   : ORIGIN = 0x20000000, LENGTH = 520K
 }
 
-ENTRY(_entry_point)
-
 SECTIONS
 {
     .text : {
